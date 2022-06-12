@@ -9,4 +9,4 @@
 ##JDBC 드라이버
 - 각 DBMS에 맞춰 만들어진 연결을 위한 클라이언트이다.
 
-<img src="./images/JDBC 구조.png" width="200" height="400"/>
+<img src="./images/JDBC 구조.png" width="200" height="400"></img><br/>
