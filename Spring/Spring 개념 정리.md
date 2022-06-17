@@ -73,7 +73,7 @@
 		- 가독성과 유지보수의 효율이 좋아지며 코드의 중복을 줄일  수 있다.
 #### DI의 개념을 이해하자
 
-<img src="./images/di.jpg width= 600px height= 400px" ></img><br/>
+<img src="images\DI.jpg" width= 600px height= 400px" ></img><br/>
 
   ``` java
       private B1 b = new B1();
@@ -140,7 +140,7 @@
   이때 우리가 만들 프로그램의 부품들이 담겨있는 컨테이너를 **IoC 컨테이너**하고 한다.
 	(요새는 DI 컨테이너라고도 하고  어샘블러, 오브젝트 팩토리 등의 이름으로 불리기도 한다)
 
-  여기서 굳이 컨테이터에 **IoC**라고 붙이는 이유는 다음과 같다.
+  - 여기서 굳이 컨테이터에 **IoC**라고 붙이는 이유는 다음과 같다.
     - A⊃B⊃C⊃D라는 객체들이 서로 연결되어 있을 때(즉 상호간에 의존성이 있을 때)를 가정하자
     - DI를 설명할 때 예시에서 의존성 주입시 전자 일체형 방식(생성자에 매개변수넣어 생성과 후자 결합형 방식(SETTER()를 통한 방식)이 있었다.
     - 전자로는 A가 인스턴화 되면 생성자에 의해 차례로 B, C, D가 만들어 진다.
@@ -159,16 +159,17 @@
 
 
 #### DI를 통한 IoC 컨테이너 생성
+<img src="images\DI 구현 예시1.jpg" width 500px height 700px/>
+<img src="images\DI 구현 예시2.jpg" width 500px height 700px/>
+
 	- 앞에서 DI와 Ioc가 무엇인지에 대해 설명 했는데 이것을 실제로 소스코드로 구현하는 방법은 여러 방법이 있다.
 	- 처음에는 소스코드에 직접 DI를 구현하는 작업은 스프링 이전에는 직접 하나하나 코드작성을 하여 이루어졌다.
 
-	<img src="images\DI 구현 예시1.jpg" width 500px height 700px/>
-	<img src="images\DI 구현 예시2.jpg" width 500px height 700px/>
 
 	위 예시 코드는 직접 소스코드로 작성한 DI의 예시이다. InlineExamConsole 객체는 Exam 타입의 exam 객체를 내부 멤버로 가지고 있기에 Exam 객체 examrhk-  InlineExamConsole객체(new InlineExamConsole)간에는 의존성이 존재한다 할 수 있다. InlineExamConsole 생성자의 매개변수로 exam를 넣어줌으로서 의존성이 주입된다.
 	이때 만약 기존에 사용하던 InlineExamConsole이라는 부품을 newExamConsole이라는 부품으로 변경하고자 하고자 한다면 newExamConsole 객체의 생성자의 매개변수로 exam을 넣어 새로운 의존성을 주입할 수 있다.
 	- 하지만 이 방법은 앞서 설명했던 것처럼 소스코드를 새로 써야하기에 번거롭고 부담이 큰 방법이다. 사람이 직접 코드를 쳐야하는 자칫 오타가 날 수도 있다
-	- **이러한 원시적인 방법을 개선하여 나타난 것이 SPRING의 DI 방식인 XML 파일을 이용한 방법이다.**
+	- *이러한 원시적인 방법을 개선하여 나타난 것이 SPRING의 DI 방식인 XML 파일을 이용한 방법이다.*
 	- 또 XML의 한계를 극복한 방법인 Annotation을 통한 SPRING DI가 만들어졌고 현재는 이 방법이 주류가 되었다.
 	- 이에 대한 자세한 설명은 따로 작성하도록 하겠다.(Spring XML 사용법 정리.md)
 
