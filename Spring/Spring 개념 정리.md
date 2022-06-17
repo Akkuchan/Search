@@ -160,7 +160,7 @@
 
 #### DI를 통한 IoC 컨테이너 생성
 
-<img src="images\DI 구현 예시1.jpg" width= "500px" height= "700px"></img><br/>
+<img src="./images\DI 구현 예시1.jpg" width= "500px" height= "700px"></img><br/>
 <img src="images\DI 구현 예시2.jpg" width= "500px" height= "700px"/>
 
 	- 앞에서 DI와 Ioc가 무엇인지에 대해 설명 했는데 이것을 실제로 소스코드로 구현하는 방법은 여러 방법이 있다.
