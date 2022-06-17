@@ -73,7 +73,7 @@
 		- 가독성과 유지보수의 효율이 좋아지며 코드의 중복을 줄일  수 있다.
 #### DI의 개념을 이해하자
 
-<img src="images\DI.jpg" width= 600px height= 400px" ></img><br/>
+<img src="images\DI.jpg" width= "600px" height= "400px" ></img><br/>
 
   ``` java
       private B1 b = new B1();
@@ -159,8 +159,9 @@
 
 
 #### DI를 통한 IoC 컨테이너 생성
-<img src="images\DI 구현 예시1.jpg" width 500px height 700px></img><br/>
-<img src="images\DI 구현 예시2.jpg" width 500px height 700px/>
+
+<img src="images\DI 구현 예시1.jpg" width= "500px" height= "700px"></img><br/>
+<img src="images\DI 구현 예시2.jpg" width= "500px" height= "700px"/>
 
 	- 앞에서 DI와 Ioc가 무엇인지에 대해 설명 했는데 이것을 실제로 소스코드로 구현하는 방법은 여러 방법이 있다.
 	- 처음에는 소스코드에 직접 DI를 구현하는 작업은 스프링 이전에는 직접 하나하나 코드작성을 하여 이루어졌다.
