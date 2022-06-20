@@ -14,7 +14,7 @@
     - @RequestMapping
     - @PathVariable
     - @RequestParam
-    - ModelAttribute
+    - @ModelAttribute
     - @SessionAttributes
   ---Spring Security 어노테이션 ---
     - @PreAuthorize
@@ -176,3 +176,70 @@
   - 그런데 우리는 좀전에 xml에 있던 <bean id="console" class="spring.di.ui.InlineExamConsole"/> 코드를 지우고 @Component로 대체 했다
   - 따라서 @Component가 그 기능을 대신해야 한다.
   - 방법은 간단하다 @Component("console")형식으로 객체로 만들 클래스에 이름을 붙혀주면 된다.
+
+### 기본값 설정을 위한 @Value 어노테이션
+  - 아래와 같이 @Component를 통해 객체가 생성될 때 @Value가 멤버 변수의 초기화 값을 전해주게 된다.
+  ```java
+    @Component
+    public class NewlecExam implements Exam{
+      @Value("20")
+      private int kor;
+      @Value("10")
+      private int eng;
+      @Value("30")
+      private int math;
+      @Value("40")
+      private int com;
+    }
+    ```
+
+## JAVA Configuration
+  - 지금까지 Annotation을 이용해 xml을 대신하기 위해 xml의 코드를 하나씩 어노테이션으로 대체해 왔다. 하지만 xml과 어노테이션을 함께 사용해 왔는데 이를 완전히 어노테이션으로 바꾸기 위해서는 JAVA Configuration 객체가 필요하다.
+  ``` Java
+   @Component
+    public class NewlecExam implements Exam{
+      ~~~~~~~~
+    }
+  ```
+  - @Component가 xml의 bean 태그를 대체하고 있지만 여전히 xml에는 여러 xmlns 코드와 <context:component-scan base-package:"클래스 패키지 경로"">등의 어노테이션과 연결할 코드가 있어야 어노테이션을 통한 객체 생성이 가능해진다.
+  - 따라서 이것조차 완전히 대체하여 xml을 필요없게 하기 위해서 몇가지 조건이 필요하다.
+  - 지금 xml 파일에 남아있는 것은 DI를 위한 설정 코드들과 bean 태그로 이루어진 몇몇 객체 생성 코드가 있다.  
+  - 이것을 우리는 자바 클래스로 대체할 수 있다.
+
+  ```java
+  // context:component-scan태그를 대체
+  @ComponentScan("spring.di.ui")
+  // 해당 클래스가 xml처럼 설정을 담당하는 클래스임을 명시
+  @Configuration
+  public class NewlecAppConfig {
+    // xml bean 태그 대신 원하는 객체를 생성한다는 의미의 어노테이션
+      @Bean
+      public Exam exam(){// 형식은 메서드를 정의하는 것 같지만 exam()은 메서드가 아니다. bean 객체가 생성되고 식별할 이름이 "exam"이 된다는 의미
+        return new NewlecExam();  
+      }
+  }
+
+  ```
+  - 이렇게 우리가 사용할 Configuration 클래스가 완성되었다.
+  - 이를 개발자가 객체화해서 가져올 수 있도록 해야한다.
+  ```java
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContxt(spring.di.ui.setting.xml);
+         ----------↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-------------------
+        ApplicationContext context = new AnnotationConfigApplicationContext(NewlecAppCongfig.class);
+        ExamConsole console = (ExamConsole) context.getBean("console");
+        console.print();
+    }
+  ```
+  - 이전에는 xml파일을 사용하였기에 xml파일을 찾아 컨테이너 객체를 만들 수 있었다.
+  - xml의 위치에 따라 ClassPathXmlApplicationContxt/FileSystemXmlApplicationContext/XmlWebApplicationContext 등의 메서드를 선택하였다.
+  - 하지만 xml이 어노테이션을 위한 config 클래스로 대체되었기에 AnnotationConfigApplicationContext의 객체를 생성해 그 기능을 이용할 수 있게 되었다.
+  - 만약 어러개의 여러개의 config파일을 설정하고 싶다면 다음과 같은 형식으로 할 수 있다.
+  ``` java
+  public static void main(String[] args) {
+      ApplicationContext context = new AnnotationConfigApplicationContext(NewlecAppCongfig.class);
+      context.register(NewlecAppCongfig.class, OtherConfig.class);
+      ExamConsole console = (ExamConsole) context.getBean("console");
+      console.print();
+  }
+  ```
