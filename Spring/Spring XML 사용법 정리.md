@@ -118,10 +118,10 @@
   - 위 코드는 그 위 코드와 동일한 기능을 수행한다. 보다 간결하게 코드를 작성할 수 있게 된다.
 
 
-## IoC 컨테이너(스프링 컨테이너)
-  - DI를 실행할 파일이 xml파일이라면 xml파일을 통해 DI가 이루어지는 가상의 공간을 IoC 컨테이너라고 한다.
-  - 이 컨테이너를 인스턴스화하고 이 객체를 통해 자바 코드에서 각 부품(클래스)의 객체를 호출할 수 있게 된다.
-  - 이를 위한 인터페이스로 ApplicationContext가 존재하고 사용방법에 따라 인스턴스화할 구현 클래스가 나뉘어진다.
+## Spring DI 컨테이너
+  - Spring DI 컨테이너가 관리하는 객체를 빈(bean)이 빈들을 관리한다는 의미로 컨테이너를 빈 팩토리(BeanFactory)라고 부른다.
+  - 객체의 생성과 객체 사이의 런타임(run-time)관계를 Di 관점에서 볼 때는 컨테이너를 BeanFactory라고 한다.
+  - 이 BeanFactory에 여러가지 컨테이너 기능을 추가한 인터페이스로 ApplicationContext가 존재하고 사용방법에 따라 인스턴스화할 구현 클래스가 나뉘어진다.
     1. ClassPathXmlApplicationContxt 클래스
     - 어플리케이션(xml파일)의 위치를 매개변수로 삼을 때는 ClassPathXmlApplicationContxt의 객체 사용
       - ex. ApplicationContext context = new ClassPathXmlApplicationContxt;
